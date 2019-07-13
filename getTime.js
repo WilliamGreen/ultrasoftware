@@ -8,9 +8,15 @@ function currentTime() {
     document.getElementById("time").innerHTML = date;
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    var seconds = new Date().getSeconds();
-    var waitTime = 60 - seconds;
+function loop(){
     currentTime();
-    setTimeout(window.setInterval(currentTime, 60000), waitTime);
+    window.setInterval(currentTime, 60000);
+};
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    var now = new Date();
+    var seconds = now.getSeconds();
+    var waitTime = (60-seconds) * 1000;
+    currentTime();
+    setTimeout(loop, waitTime);
 });
