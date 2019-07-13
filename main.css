@@ -1,0 +1,105 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.frame {
+    width: 100%;
+    height: 100%;
+    background-color: #008484;
+}
+
+.taskbar {
+    height: 28px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #B4B4B4;
+    border-top: 2px solid #FFFFFF;
+    outline: 2px solid #B4B4B4;
+}
+
+.start-button {
+    display: inline-block;
+    background-color: #B4B4B4;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #6D6D6D;
+    border-right: 2px solid #6D6D6D;
+    width: 54px;
+    height: 19px;
+    margin: 2px;
+}
+
+.start-button-icon {
+    width: 46px;
+    margin-left: 4px;
+    margin-top: 2px;
+}
+
+.system-tray {
+    display: inline-block;
+    background-color: #B4B4B4;
+    border-top: 2px solid #6D6D6D;
+    border-left: 2px solid #6D6D6D;
+    border-bottom: 2px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
+    width: 54px;
+    height: 19px;
+    margin: 2px;
+    float: right;
+}
+
+.desktop {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.folder-wrap {
+    width: 60px;
+}
+
+.folder-wrap:hover {
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    cursor: hand;
+}
+
+.folder {
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+.folder:hover {
+    color: rgb(189, 189, 189);
+}
+
+.folder-icon {
+    margin-bottom: 6px;
+}
+
+.trash-wrap {
+    width: 60px;
+    margin-top: 25px;
+}
+
+.trash-wrap:hover {
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+}
+
+.trash {
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+.trash:hover {
+    color: rgb(189, 189, 189);
+}
+
+.trash-icon {
+    margin-bottom: 6px;
+}
