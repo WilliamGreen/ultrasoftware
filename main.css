@@ -60,6 +60,7 @@ body {
 
 .folder-wrap {
     width: 60px;
+    position: absolute;
 }
 
 .folder-wrap:hover {
@@ -83,7 +84,8 @@ body {
 
 .trash-wrap {
     width: 60px;
-    margin-top: 25px;
+    position: absolute;
+    top: 100px;
 }
 
 .trash-wrap:hover {
