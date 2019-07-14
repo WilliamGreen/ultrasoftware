@@ -107,7 +107,7 @@ body {
 }
 
 .startmenu-wrap {
-    visibility: visible;
+    visibility: hidden;
     display:flex;
     flex-direction: row;
     width: 200px;

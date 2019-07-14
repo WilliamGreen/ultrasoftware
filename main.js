@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 function menuToggle() {
     var menu = document.getElementsByClassName("startmenu-wrap")[0];
-    if (menu.style.visibility == "hidden") {
+    if (menu.style.visibility == "hidden" || menu.style.visibility == "") {
         menu.style.visibility = "visible";
     } else {
         menu.style.visibility = "hidden";
