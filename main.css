@@ -105,3 +105,48 @@ body {
 .trash-icon {
     margin-bottom: 6px;
 }
+
+.startmenu-wrap {
+    visibility: visible;
+    display:flex;
+    flex-direction: row;
+    width: 200px;
+    height: 300px;
+    bottom: 30px;
+    position: absolute;
+}
+
+.startmenu {
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #C0C0C0;
+    width: 100%;
+    height: 100%;
+    border-right:2px solid #112122;
+    border-bottom:2px solid #112122;
+    border-left:2px solid #EEF0EA;
+    border-top:2px solid #EEF0EA;
+}
+
+.menulogo {
+    background-color: #808080;
+    height: 100%;
+    width: 21%;
+    margin-left: 1%;
+    margin-top: 1%;
+    position: absolute;
+    z-index: 1;
+}
+
+.menuitem {
+    background-color: #C0C0C0;
+    height: 17%;
+    width: 80%;
+    margin-left: 20%;
+
+}
+
+.menuitem:hover {
+    background-color: #00207D;
+}
