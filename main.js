@@ -8,27 +8,23 @@ function currentTime() {
     document.getElementById("time").innerHTML = date;
 }
 
-function loop(){
+function timeLoop(){
     currentTime();
     window.setInterval(currentTime, 60000);
 };
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    var now = new Date();
-    var seconds = now.getSeconds();
-    var waitTime = (60-seconds) * 1000;
-    currentTime();
-    setTimeout(loop, waitTime);
+function showTimePopup() {
+    getPopupDate();
+    var clock = document.getElementsByClassName("clock-popup")[0];
+    clock.style.visibility = "visible";
+}
 
-    document.getElementsByClassName("desktop")[0].addEventListener("click", menuHide);
-    document.getElementsByClassName("taskbar-clickable")[0].addEventListener("click", menuHide);
-
-    document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
-    document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
-    document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
-});
-
-
+function hideTimePopup() {
+    getPopupDate();
+    var clock = document.getElementsByClassName("clock-popup")[0];
+    clock.style.visibility = "hidden";
+    
+}
 
 function dragElementOnTop(elemt) {
     var icon = document.getElementById(elemt);
@@ -43,15 +39,12 @@ function menuToggle() {
     } else {
         menu.style.visibility = "hidden";
     }
-
 }
 
 function menuHide() {
     var menu = document.getElementsByClassName("startmenu-wrap")[0];
     menu.style.visibility = "hidden";
-    
 }
-
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -101,3 +94,27 @@ function dragElement(elmnt) {
     }
 }
 
+function getPopupDate() {
+    var now = new Date();
+    var months = [ "January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December" ];
+    var monthName = months[now.getMonth()];
+    var popUp = now.getDate() + " " + monthName + " " + now.getFullYear(); 
+    document.getElementsByClassName("clock-popup")[0].innerHTML = popUp;
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    var now = new Date();
+    var seconds = now.getSeconds();
+    var waitTime = (60-seconds) * 1000;
+    currentTime();
+    setTimeout(timeLoop, waitTime);
+
+    document.getElementsByClassName("desktop")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("taskbar-clickable")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseover", showTimePopup);
+    document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseout", hideTimePopup);
+    document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
+    document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
+    document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
+});
