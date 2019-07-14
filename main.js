@@ -20,9 +20,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
     currentTime();
     setTimeout(loop, waitTime);
 
+    document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
     document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("projects")));
     document.getElementById("trash").addEventListener("mousedown", dragElement(document.getElementById("trash")));
 });
+
+function menuToggle() {
+    var menu = document.getElementsByClassName("startmenu-wrap")[0];
+    if (menu.style.visibility == "hidden" || menu.style.visibility == "") {
+        menu.style.visibility = "visible";
+    } else {
+        menu.style.visibility = "hidden";
+    }
+    console.log("hi");
+}
 
 
 function dragElement(elmnt) {
