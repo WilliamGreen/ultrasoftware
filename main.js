@@ -24,9 +24,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName("taskbar-clickable")[0].addEventListener("click", menuHide);
 
     document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
-    document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("projects")));
-    document.getElementById("trash").addEventListener("mousedown", dragElement(document.getElementById("trash")));
+    document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
+    document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
 });
+
+
+
+function dragElementOnTop(elemt) {
+    var icon = document.getElementById(elemt);
+    dragElement(icon);
+    
+}
 
 function menuToggle() {
     var menu = document.getElementsByClassName("startmenu-wrap")[0];
@@ -50,20 +58,25 @@ function dragElement(elmnt) {
     if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id).style.zIndex = 1;
     } else {
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
+        
     }
 
     function dragMouseDown(e) {
+        
         e = e || window.event;
         e.preventDefault();
+        document.getElementById(elmnt.id).style.zIndex = 1; //moves icon to front when selected
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
+        
     }
 
     function elementDrag(e) {
@@ -83,6 +96,8 @@ function dragElement(elmnt) {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
+        document.getElementById(elmnt.id).style.zIndex = 0; //moves icon to back when selected
+        
     }
 }
 
