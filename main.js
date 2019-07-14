@@ -104,12 +104,13 @@ function getPopupDate() {
 }
 
 function showProjectsWindow() {
-    document.getElementsByClassName("window-wrap")[0].style.visibility = "visible";
+    document.getElementById("window").style.visibility = "visible";
 }
 
 function hideProjectsWindow() {
-    document.getElementsByClassName("window-wrap")[0].style.visibility = "hidden";
+    document.getElementById("window").style.visibility = "hidden";
 }
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     var now = new Date();
@@ -125,10 +126,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseover", showTimePopup);
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseout", hideTimePopup);
 
-    document.getElementById("projects").addEventListener("click", showProjectsWindow);
+    document.getElementById("projects").addEventListener("dblclick", showProjectsWindow);
     document.getElementById("minimise").addEventListener("click", hideProjectsWindow);
 
     document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
     document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
-    document.getElementById("titlebar-text").addEventListener("mousedown", dragElement(document.getElementById("window")));
+    document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("window")));
 });
