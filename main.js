@@ -20,6 +20,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     currentTime();
     setTimeout(loop, waitTime);
 
+    document.getElementsByClassName("desktop")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("taskbar-clickable")[0].addEventListener("click", menuHide);
+
     document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
     document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("projects")));
     document.getElementById("trash").addEventListener("mousedown", dragElement(document.getElementById("trash")));
@@ -32,7 +35,13 @@ function menuToggle() {
     } else {
         menu.style.visibility = "hidden";
     }
-    console.log("hi");
+
+}
+
+function menuHide() {
+    var menu = document.getElementsByClassName("startmenu-wrap")[0];
+    menu.style.visibility = "hidden";
+    
 }
 
 
