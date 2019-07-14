@@ -103,6 +103,7 @@ body {
 
 .trash-wrap:hover {
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    cursor: hand;
 }
 
 .trash {
