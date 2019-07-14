@@ -10,6 +10,12 @@ body {
     width: 100%;
     height: 100%;
     background-color: #008484;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .taskbar {
@@ -192,13 +198,12 @@ body {
 /* windows */
 
 .window-wrap {
+    visibility: hidden;
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: 200px;
-    width: 290px;
-    margin-left: 20%;
-    margin-top: 20%;
+    height: 40%;
+    width: 35%;
 }
 
 .window-background {
@@ -211,12 +216,30 @@ body {
     border-top:2px solid #EEF0EA;
 }
 
+.window-background-wrapper {
+    position: relative;
+}
+
+.window-background-wrapper::after {
+    pointer-events: none;
+    content: "↓";
+    font-size: 14px;
+    position: absolute;
+    height: 22px;
+    width: 20px;
+    text-align: center;
+    bottom: 2px;
+    right: -2px;
+    background-color: #efefef;
+    color: #777;
+}
+
 .window-titlebar {
     display:flex;
     flex-direction: row;
     background-color: #00207D;
-    width: 98%;
-    margin-left: 1%;
+    width: 99%;
+    margin-left: 0.5%;
     margin-top: 0.5%;
     height: 18px;
 }
@@ -232,9 +255,10 @@ body {
 
 .window-titlebar-text {
     color: #FFF;
-    width: 70%;
-    margin-left: 7%;
-    margin-top: 1px;
+    width: 85%;
+    margin-left: 20px;
+    margin-top: 1px; 
+    margin-right: 3%;
     font-size: 12px;
     font-weight: 900;
 }
@@ -249,30 +273,79 @@ body {
     border-bottom:1px solid #112122;
     border-left:1px solid #EEF0EA;
     border-top:1px solid #EEF0EA;
+    
 }
+
+.window-titlebar-button:active{
+    margin-top: 2px;
+    margin-right: 1px;
+    height: 12px;
+    width: 14px;
+    background-color: #C3C7CB;
+    border-right:1px solid #EEF0EA;
+    border-bottom:1px solid #EEF0EA;
+    border-left:1px solid #112122;
+    border-top:1px solid #112122;
+
+}
+
+
+.window-titlebar-minimise {
+    width: 6px;
+    height: 3px;
+    background-color: #000;
+    margin-left: 3px; 
+    margin-top: 8px;
+}
+
+.window-titlebar-maximise {
+    width: 7px;
+    height: 6px;
+    background-color: #C3C7CB;
+    border-left:1px solid #000;
+    border-top:3px solid #000;
+    border-right:1px solid #000;
+    border-bottom:2px solid #000;
+    margin-left: 2px; 
+    margin-top: 0px;
+}
+
+
+.window-titlebar-close {
+    margin-left:3px;
+    margin-top: 3px;
+    width: 7px;
+    height: 7px;
+    background-color: #000;
+}
+
+
+
 
 .window-titlebar-spacer {
     width: 2px;
+    height: 0px;
+
 }
 
 .window-toolbar {
     background-color: #C3C7CB;
     display: flex;
     flex-direction: row;
-    height: 14px;
-    width: 98%;
-    margin-left: 1%;
+    height: 16px;
+    width: 98.5%;
+    margin-left: 0.5%;
 }
 
 .window-toolbar-button {
     height: 100%;
     font-size: 12px;
-    margin-right: 8px;
+    margin-right: 1%;
 }
 
 .window-main {
-    height: 75%;
-    width: 98%;
+    height: 85%;
+    width: 98.5%;
     margin-left: 0.5%;
     background-color: #FFF;
     border-left:1px solid #112122;
@@ -284,8 +357,8 @@ body {
 .window-bottombar-wrap {
     display: flex;
     flex-direction: row;
-    width: 98.5%;
-    margin-top: 1px;
+    width: 99%;
+    margin-top: 3px;
     margin-left: 1.5px;
 }
 
@@ -294,8 +367,9 @@ body {
     border-top:1px solid #868A8E;
     border-right:1px solid #FFF;
     border-bottom:1px solid #FFF;
-    height: 10px;
+    height: 11px;
     width: 50%;
-
 }
+
+
 
