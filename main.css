@@ -21,6 +21,14 @@ body {
     outline: 2px solid #B4B4B4;
 }
 
+.taskbar-clickable {
+    height: 28px;
+    width: 94%;
+    position: absolute;
+    bottom: 0;
+    margin-left: 6%;
+}
+
 .start-button {
     display: inline-block;
     background-color: #B4B4B4;
