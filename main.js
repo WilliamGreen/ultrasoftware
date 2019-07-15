@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     currentTime();
     setTimeout(timeLoop, waitTime);
 
-    //document.getElementsByClassName("desktop")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("desktop-click-area")[0].addEventListener("click", menuHide);
     document.getElementsByClassName("taskbar-click-area")[0].addEventListener("click", menuHide);
     document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
 
