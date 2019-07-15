@@ -209,6 +209,8 @@ body {
     flex-direction: column;
     height: 40%;
     width: 35%;
+    bottom: 40%;
+    left: 20%;
 }
 
 .window-background {
