@@ -39,11 +39,13 @@ function menuToggle() {
     } else {
         menu.style.visibility = "hidden";
     }
+
 }
 
 function menuHide() {
     var menu = document.getElementsByClassName("startmenu-wrap")[0];
     menu.style.visibility = "hidden";
+    console.log("menuhide")
 }
 
 function dragElement(elmnt) {
@@ -119,8 +121,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     currentTime();
     setTimeout(timeLoop, waitTime);
 
-    document.getElementsByClassName("desktop")[0].addEventListener("click", menuHide);
-    document.getElementsByClassName("taskbar-clickable")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("desktop-click-area")[0].addEventListener("click", menuHide);
+    document.getElementsByClassName("taskbar-click-area")[0].addEventListener("click", menuHide);
     document.getElementsByClassName("start-button")[0].addEventListener("click", menuToggle);
 
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseover", showTimePopup);
