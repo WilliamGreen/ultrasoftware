@@ -1,3 +1,7 @@
+//global variables (sorry)
+var projectsWindowOpen = false;
+
+
 function currentTime() {
     var now = new Date();
     var minutes = now.getMinutes().toString();
@@ -106,11 +110,32 @@ function getPopupDate() {
 }
 
 function showProjectsWindow() {
-    document.getElementById("window").style.visibility = "visible";
+    var window = document.getElementById("window");
+    window.style.visibility = "visible";
+    var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
+    taskbarWindow.style.borderTop = "2px solid #6D6D6D"
+    taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
+    taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
+    taskbarWindow.style.borderRight = "1px solid #FFFFFF"
+    projectsWindowOpen = true;
 }
 
 function hideProjectsWindow() {
     document.getElementById("window").style.visibility = "hidden";
+    var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
+    taskbarWindow.style.borderBottom = "2px solid #6D6D6D"
+    taskbarWindow.style.borderRight = "2px solid #6D6D6D"
+    taskbarWindow.style.borderTop = "1px solid #FFFFFF"
+    taskbarWindow.style.borderLeft = "1px solid #FFFFFF"
+    projectsWindowOpen = false;
+}
+
+function toggleProjectsWindow() {
+    if (projectsWindowOpen) {
+        hideProjectsWindow();
+    } else {
+        showProjectsWindow();
+    }
 }
 
 
@@ -134,4 +159,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
     document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
     document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("window")));
+
+    document.getElementsByClassName("taskbar-window")[0].addEventListener("click", toggleProjectsWindow);
 });
