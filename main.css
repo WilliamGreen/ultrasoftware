@@ -294,8 +294,8 @@ body {
     height: 12px;
     width: 14px;
     background-color: #C3C7CB;
-    border-right:1px solid #112122;
-    border-bottom:1px solid #112122;
+    border-right:2px solid #112122;
+    border-bottom:2px solid #112122;
     border-left:1px solid #EEF0EA;
     border-top:1px solid #EEF0EA;
     
@@ -309,8 +309,8 @@ body {
     background-color: #C3C7CB;
     border-right:1px solid #EEF0EA;
     border-bottom:1px solid #EEF0EA;
-    border-left:1px solid #112122;
-    border-top:1px solid #112122;
+    border-left:2px solid #112122;
+    border-top:2px solid #112122;
 
 }
 
