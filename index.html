@@ -27,9 +27,8 @@
                     <div class="window-wrap" id="window">
                         <div class="window-background">
                             <div class="window-titlebar">
-                                
-                                <div class="window-titlebar-icon" id="titlebar icon"></div>
-                                <div class="window-titlebar-text" id="windowheader">Projects</div>
+                                <div class="window-titlebar-icon" id="titlebar icon"><img class="taskbar-titlebar-icon-pic" src="images/open-folder-16.png"></div>
+                                <div class="window-titlebar-text" id="windowheader">My Projects</div>
                                 <div class="window-titlebar-button" id="minimise">
                                     <div class="window-titlebar-minimise"></div>
                                 </div>
@@ -59,12 +58,20 @@
 
             
             <div class="taskbar">
-                    <div class="start-button"><img class="start-button-icon" src="images/start.svg"/></div>
+                <div class="start-button"><img class="start-button-icon" src="images/start.svg"/></div>
                 <div class="taskbar-click-area"></div>
+                <div class="taskbar-window">
+                        <div class="taskbar-window-icon"><img class="taskbar-window-icon-pic" src="images/folder-icon-16.png"></div>
+                        <div class="taskbar-window-text">My Projects</div>
+                    </div>
                 <div class="startmenu-wrap">
                     <div class="menulogo"></div>
                     <div class="startmenu">
-                        <div class="menuitem"></div>
+                        <div class="menuitem" id="menuitem-projects">
+                            <div class="menuitem-icon"><img class="startmenu-projects" src="images/open-folder-32.png"></div>
+                            <div class="menuitem-text">My Projects</div>
+                        </div>
+                         
                         <div class="menuitem"></div>
                         <div class="menuitem"></div>
                         <div class="menuitem"></div>
@@ -73,10 +80,11 @@
                     </div>
                 </div>
                 <div class="system-tray">
-                    <div class="clock-hoverable"></div>
-                    <div class="clock-popup"></div>     
-                    <div class="clock" id="time"></div>
-                </div>
+                        <div class="clock-hoverable"></div>
+                        <div class="clock-popup"></div>     
+                        <div class="clock" id="time"></div>
+                    </div>
+
             </div>
         </div>
     </body>
