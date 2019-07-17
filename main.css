@@ -19,6 +19,8 @@ body {
 }
 
 .taskbar {
+    display:flex;
+    flex-direction: row;
     height: 28px;
     width: 100%;
     position: absolute;
@@ -30,10 +32,7 @@ body {
 
 .taskbar-click-area {
     height: 28px;
-    width: 88%;
-    position: absolute;
-    bottom: 0;
-    margin-left: 6%;
+    flex-grow: 100;
 }
 
 .start-button {
@@ -55,7 +54,6 @@ body {
 }
 
 .system-tray {
-    display: absolute;
     background-color: #C3C7CB;
     border-top: 1px solid #868A8E;
     border-left: 1px solid #868A8E;
@@ -65,7 +63,7 @@ body {
     height: 19px;
     margin-top: 3px;
     margin-right: 5px;
-    float: right;
+    margin-left: auto;
 }
 
 .desktop {
@@ -196,7 +194,6 @@ body {
 /* clock stuff */
 
 .clock {
-    position: absolute;
     font-size: 13px;
     top:5px;
     left:97.8%;
@@ -226,13 +223,15 @@ body {
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: 40%;
-    width: 35%;
-    bottom: 40%;
-    left: 20%;
+    height: 40vw;
+    width: 60vw;
+    top: 30px;
+    left: 190px;
 }
 
 .window-background {
+    display:flex;
+    flex-direction: column;
     background-color: #C3C7CB;
     height: 100%;
     width: 100%;
@@ -264,9 +263,9 @@ body {
     display:flex;
     flex-direction: row;
     background-color: #00207D;
-    width: 99%;
-    margin-left: 0.5%;
-    margin-top: 0.5%;
+    width: 99.5%;
+    margin-left: 2px;
+    margin-top: 2px;
     height: 18px;
 }
 
@@ -275,15 +274,13 @@ body {
     margin-left:2px;
     height: 16px;
     width: 16px;
-    position: absolute;
 }
 
 .window-titlebar-text {
+    flex-grow: 100;
     color: #FFF;
-    width: 85%;
-    margin-left: 20px;
+    margin-left: 5px;
     margin-top: 1px; 
-    margin-right: 3%;
     font-size: 12px;
     font-weight: 900;
 }
@@ -298,7 +295,6 @@ body {
     border-bottom:2px solid #112122;
     border-left:1px solid #EEF0EA;
     border-top:1px solid #EEF0EA;
-    
 }
 
 .window-titlebar-button:active{
@@ -311,9 +307,7 @@ body {
     border-bottom:1px solid #EEF0EA;
     border-left:2px solid #112122;
     border-top:2px solid #112122;
-
 }
-
 
 .window-titlebar-minimise {
     width: 6px;
@@ -344,59 +338,67 @@ body {
     background-color: #000;
 }
 
-
-
-
 .window-titlebar-spacer {
     width: 2px;
     height: 0px;
-
 }
 
 .window-toolbar {
     background-color: #C3C7CB;
     display: flex;
     flex-direction: row;
-    height: 16px;
+    height: 20px;
     width: 98.5%;
-    margin-left: 0.5%;
+    margin-left: 2px;
 }
 
 .window-toolbar-button {
+    margin-left: 2px;
+    margin-top:2px;
     height: 100%;
     font-size: 12px;
     margin-right: 1%;
 }
 
 .window-main {
-    height: 85%;
-    width: 98.5%;
-    margin-left: 0.5%;
+    width: 99.3%;
+    margin-left: 2px;
     background-color: #FFF;
-    border-left:1px solid #112122;
-    border-top:1px solid #112122;
-    border-right:1px solid #EEF0EA;
-    border-bottom:1px solid #EEF0EA;
+    border-left:2px solid #434547;
+    border-top:2px solid #434547;
+    border-right:1px solid #E1E3E5;
+    border-bottom:1px solid #E1E3E5;
+    flex-grow: 100;
 }
 
 .window-bottombar-wrap {
     display: flex;
     flex-direction: row;
-    width: 99%;
+    width: 99.5%;
     margin-top: 3px;
     margin-left: 1.5px;
+    margin-bottom: 1px;
 }
 
 .window-bottombar {
+    flex-grow: 100;
+    margin-bottom:1px;
     border-left:1px solid #868A8E;
     border-top:1px solid #868A8E;
     border-right:1px solid #FFF;
     border-bottom:1px solid #FFF;
-    height: 11px;
-    width: 50%;
+    height: 15px;
+}
+
+.window-bottombar-spacer {
+    width:2px;
+    height: 15px;
 }
 
 .taskbar-window {
+    display: none;
+    margin-top: 2px;
+    flex-direction: row;
     background-color: #C3C7CB;
     border-top: 1px solid #FFFFFF;
     border-left: 1px solid #FFFFFF;
@@ -404,23 +406,20 @@ body {
     border-right: 2px solid #6D6D6D;
     width: 160px;
     height: 19px;
-    position: absolute;
-    left: 62px;
-    bottom: 4px;
+
 }
 
 
 
 .taskbar-window-icon {
+    margin-top: 1px;
+    margin-left: 2px;
     width: 19px;
     height: 19px;
-    position: absolute;
-    left:3px;
-    top: 1px;
 }
 
 .taskbar-window-text {
-    position: absolute;
+    margin-top: 2px;
     font-size: 12px;
     height: 19px;
     top:2px;

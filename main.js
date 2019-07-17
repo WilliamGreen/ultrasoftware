@@ -1,5 +1,6 @@
 //global variables (sorry)
 var projectsWindowOpen = false;
+var taskbarWindows = [];
 
 
 function currentTime() {
@@ -109,28 +110,28 @@ function getPopupDate() {
 }
 
 function showProjectsWindow() {
-    var window = document.getElementById("window");
-    window.style.visibility = "visible";
+    document.getElementById("projects-window").style.visibility = "visible";
 
     var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
     icon.src = "images/open-folder-16.png";
 
-    var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
+    var taskbarWindow = document.getElementById("taskbar-projects");
     taskbarWindow.style.borderTop = "2px solid #6D6D6D"
     taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
     taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
     taskbarWindow.style.borderRight = "1px solid #FFFFFF"
+    taskbarWindow.style.display = "flex";
+    
     projectsWindowOpen = true;
 }
 
 function hideProjectsWindow() {
-    document.getElementById("window").style.visibility = "hidden";
-    var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
-
+    document.getElementById("projects-window").style.visibility = "hidden";
+    
     var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
     icon.src = "images/folder-icon-16.png";
 
-
+    var taskbarWindow = document.getElementById("taskbar-projects");
     taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
     taskbarWindow.style.borderRight = "2px solid #6D6D6D";
     taskbarWindow.style.borderTop = "1px solid #FFFFFF";
@@ -144,6 +145,42 @@ function toggleProjectsWindow() {
     } else {
         showProjectsWindow();
     }
+}
+
+function closeProjectsWindow() {
+    hideProjectsWindow();
+    var taskbarWindow = document.getElementById("taskbar-projects");
+    taskbarWindow.style.display = "none";
+    projectsWindowOpen = false;
+}
+
+function showTrashWindow() {
+    document.getElementById("trash-window").style.visibility = "visible";
+    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
+    icon.src = "images/folder-icon-16.png";
+
+    var taskbarWindow = document.getElementById("taskbar-trash");
+    taskbarWindow.style.display = "flex";
+    taskbarWindow.style.borderTop = "2px solid #6D6D6D"
+    taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
+    taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
+    taskbarWindow.style.borderRight = "1px solid #FFFFFF"
+}
+
+function hideTrashWindow() {
+    document.getElementById("trash-window").style.visibility = "hidden";
+    taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
+    taskbarWindow.style.borderRight = "2px solid #6D6D6D";
+    taskbarWindow.style.borderTop = "1px solid #FFFFFF";
+    taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
+}
+
+function closeTrashWindow() {
+    document.getElementById("trash-window").style.visibility = "hidden";
+
+    var taskbarWindow = document.getElementById("taskbar-trash");
+    taskbarWindow.style.display = "none";
+    projectsWindowOpen = false;
 }
 
 
@@ -163,14 +200,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseover", showTimePopup);
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseout", hideTimePopup);
 
+    //desktop icons
     document.getElementById("projects").addEventListener("dblclick", showProjectsWindow);
-    document.getElementById("minimise").addEventListener("click", hideProjectsWindow);
-
+    document.getElementById("trash").addEventListener("dblclick", showTrashWindow);
     document.getElementById("projects").addEventListener("mousedown", dragElementOnTop("projects"));
     document.getElementById("trash").addEventListener("mousedown", dragElementOnTop("trash"));
-    document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("window")));
 
-    document.getElementsByClassName("taskbar-window")[0].addEventListener("click", toggleProjectsWindow);
+    //My Projects window
+    document.getElementById("window-projects-min").addEventListener("click", hideProjectsWindow);
+    document.getElementById("window-projects-close").addEventListener("click", closeProjectsWindow);
+
+    
+    
+    document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("projects-window")));
+
+    document.getElementById("taskbar-projects").addEventListener("click", toggleProjectsWindow);
 
     //startmenu listeners
     document.getElementById("menuitem-projects").addEventListener("click", function() {showProjectsWindow(); menuHide();});

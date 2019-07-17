@@ -24,46 +24,90 @@
                             <div class="trash"><img class="trash-icon"  src="images/trash-icon-32.png"/><br>Trash</div>
                     </div>
 
-                    <div class="window-wrap" id="window">
+                    <div class="window-wrap" id="projects-window">
                         <div class="window-background">
                             <div class="window-titlebar">
                                 <div class="window-titlebar-icon" id="titlebar icon"><img class="taskbar-titlebar-icon-pic" src="images/open-folder-16.png"></div>
                                 <div class="window-titlebar-text" id="windowheader">My Projects</div>
-                                <div class="window-titlebar-button" id="minimise">
-                                    <div class="window-titlebar-minimise"></div>
+
+                                <div class="window-titlebar-button" id="window-projects-min">
+                                    <div class="window-titlebar-minimise" ></div>
                                 </div>
-                                <div class="window-titlebar-button">
-                                    <div class="window-titlebar-maximise"></div>
+
+                                <div class="window-titlebar-button" id="window-projects-max">
+                                    <div class="window-titlebar-maximise" ></div>
                                 </div>
+
                                 <div class="window-titlebar-spacer"></div>
-                                <div class="window-titlebar-button">
+
+                                <div class="window-titlebar-button" id="window-projects-close">
                                     <div class="window-titlebar-close"></div>
                                 </div>
+
                                 <div class="window-titlebar-spacer"></div>
                             </div>
+
                             <div class="window-toolbar">
                                 <div class="window-toolbar-button">File</div>
                                 <div class="window-toolbar-button">Edit</div>
                                 <div class="window-toolbar-button">View</div>
                                 <div class="window-toolbar-button">Help</div>
                             </div>
+
                             <div class="window-main"></div>
+
                             <div class="window-bottombar-wrap">
                                 <div class="window-bottombar"></div>
+                                <div class="window-bottombar-spacer"></div>
                                 <div class="window-bottombar"></div>
-                                
                             </div>
+                    </div>
+
+                    <div class="window-wrap" id="trash-window">
+                            <div class="window-background">
+                                <div class="window-titlebar">
+                                    <div class="window-titlebar-icon" id="titlebar icon"><img class="taskbar-titlebar-icon-pic" src="images/trash-icon-16.png"></div>
+                                    <div class="window-titlebar-text" id="windowheader">Trash</div>
+    
+                                    <div class="window-titlebar-button" id="window-trash-min">
+                                        <div class="window-titlebar-minimise" ></div>
+                                    </div>
+    
+                                    <div class="window-titlebar-button" id="window-trash-max">
+                                        <div class="window-titlebar-maximise" ></div>
+                                    </div>
+    
+                                    <div class="window-titlebar-spacer"></div>
+    
+                                    <div class="window-titlebar-button" id="window-trash-close">
+                                        <div class="window-titlebar-close"></div>
+                                    </div>
+    
+                                    <div class="window-titlebar-spacer"></div>
+                                </div>
+    
+                                <div class="window-toolbar">
+                                    <div class="window-toolbar-button">File</div>
+                                    <div class="window-toolbar-button">Edit</div>
+                                    <div class="window-toolbar-button">View</div>
+                                    <div class="window-toolbar-button">Help</div>
+                                </div>
+    
+                                <div class="window-main"></div>
+    
+                                <div class="window-bottombar-wrap">
+                                    <div class="window-bottombar"></div>
+                                    <div class="window-bottombar-spacer"></div>
+                                    <div class="window-bottombar"></div>
+                                </div>
+                        </div>
                     </div>
             </div>
 
             
             <div class="taskbar">
                 <div class="start-button"><img class="start-button-icon" src="images/start.svg"/></div>
-                <div class="taskbar-click-area"></div>
-                <div class="taskbar-window">
-                        <div class="taskbar-window-icon"><img class="taskbar-window-icon-pic" src="images/folder-icon-16.png"></div>
-                        <div class="taskbar-window-text">My Projects</div>
-                    </div>
+
                 <div class="startmenu-wrap">
                     <div class="menulogo"></div>
                     <div class="startmenu">
@@ -71,7 +115,7 @@
                             <div class="menuitem-icon"><img class="startmenu-projects" src="images/open-folder-32.png"></div>
                             <div class="menuitem-text">My Projects</div>
                         </div>
-                         
+                            
                         <div class="menuitem"></div>
                         <div class="menuitem"></div>
                         <div class="menuitem"></div>
@@ -79,12 +123,16 @@
                         <div class="menuitem"></div>
                     </div>
                 </div>
-                <div class="system-tray">
-                        <div class="clock-hoverable"></div>
-                        <div class="clock-popup"></div>     
-                        <div class="clock" id="time"></div>
-                    </div>
+                
 
+
+                <div class="taskbar-click-area"></div>
+
+                <div class="system-tray">
+                    <div class="clock-hoverable"></div>
+                    <div class="clock-popup"></div>     
+                    <div class="clock" id="time"></div>
+                </div>
             </div>
         </div>
     </body>
