@@ -49,7 +49,6 @@ function menuToggle() {
 function menuHide() {
     var menu = document.getElementsByClassName("startmenu-wrap")[0];
     menu.style.visibility = "hidden";
-    console.log("menuhide")
 }
 
 function dragElement(elmnt) {
@@ -112,6 +111,10 @@ function getPopupDate() {
 function showProjectsWindow() {
     var window = document.getElementById("window");
     window.style.visibility = "visible";
+
+    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
+    icon.src = "images/open-folder-16.png";
+
     var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
     taskbarWindow.style.borderTop = "2px solid #6D6D6D"
     taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
@@ -123,10 +126,15 @@ function showProjectsWindow() {
 function hideProjectsWindow() {
     document.getElementById("window").style.visibility = "hidden";
     var taskbarWindow = document.getElementsByClassName("taskbar-window")[0];
-    taskbarWindow.style.borderBottom = "2px solid #6D6D6D"
-    taskbarWindow.style.borderRight = "2px solid #6D6D6D"
-    taskbarWindow.style.borderTop = "1px solid #FFFFFF"
-    taskbarWindow.style.borderLeft = "1px solid #FFFFFF"
+
+    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
+    icon.src = "images/folder-icon-16.png";
+
+
+    taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
+    taskbarWindow.style.borderRight = "2px solid #6D6D6D";
+    taskbarWindow.style.borderTop = "1px solid #FFFFFF";
+    taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
     projectsWindowOpen = false;
 }
 
@@ -137,6 +145,8 @@ function toggleProjectsWindow() {
         showProjectsWindow();
     }
 }
+
+
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -161,4 +171,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("projects").addEventListener("mousedown", dragElement(document.getElementById("window")));
 
     document.getElementsByClassName("taskbar-window")[0].addEventListener("click", toggleProjectsWindow);
+
+    //startmenu listeners
+    document.getElementById("menuitem-projects").addEventListener("click", function() {showProjectsWindow(); menuHide();});
 });
