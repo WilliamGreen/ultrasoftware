@@ -218,122 +218,6 @@ function menuHide() {
    ----------------------------------------------------
 */
 
-//TODO: just make these into generic functions
-
-/* Trash window */
-
-
-function showTrashWindow() {
-    document.getElementById("trash-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("trash-window"))});
-    var desktopWindow = document.getElementById("trash-window");
-    desktopWindow.style.visibility = "visible";
-    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
-    icon.src = "images/folder-icon-16.png";
-
-    var taskbarWindow = document.getElementById("taskbar-trash");
-    taskbarWindow.style.display = "flex";
-    taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-    taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-    taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-    taskbarWindow.style.borderRight = "1px solid #FFFFFF"
-
-    if (!taskbarWindows.includes("taskbar-trash")) {
-        taskbarWindows.push("taskbar-trash");
-    }
-    moveToTopOfHierarchy(desktopWindow);
-}
-
-function hideTrashWindow() {
-    document.getElementById("trash-window").removeEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("trash-window"))});
-    var taskbarWindow = document.getElementById("taskbar-trash");
-    document.getElementById("trash-window").style.visibility = "hidden";
-    taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-    taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-    taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-    taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-}
-
-function closeTrashWindow() {
-    document.getElementById("trash-window").style.visibility = "hidden";
-
-    var taskbarWindow = document.getElementById("taskbar-trash");
-    taskbarWindow.style.display = "none";
-
-    var indexTaskbar = taskbarWindows.indexOf("taskbar-trash");
-    var indexDragged = draggedWindowsHierarchy.indexOf("trash-window")
-    if (indexTaskbar > -1 && indexDragged > -1) {
-        taskbarWindows.splice(indexTaskbar, 1);
-        draggedWindowsHierarchy.splice(indexDragged, 1);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-}
-
-
-
-/* My Projects window */
-
-
-function showProjectsWindow() {
-    document.getElementById("projects-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("projects-window"))});
-    var desktopWindow = document.getElementById("projects-window");
-    desktopWindow.style.visibility = "visible";
-
-    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
-    icon.src = "images/open-folder-16.png";
-
-    var taskbarWindow = document.getElementById("taskbar-projects");
-    taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-    taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-    taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-    taskbarWindow.style.borderRight = "1px solid #FFFFFF"
-    taskbarWindow.style.display = "flex";
-    
-    if (!taskbarWindows.includes("taskbar-projects")) {
-        taskbarWindows.push("taskbar-projects");
-    }
-    moveToTopOfHierarchy(desktopWindow);
-}
-
-function hideProjectsWindow() {
-    document.getElementById("projects-window").removeEventListener("click", function () {moveToTopOfHierarchy(document.getElementById("projects-window"))});
-    document.getElementById("projects-window").style.visibility = "hidden";
-    
-    var icon = document.getElementsByClassName("taskbar-window-icon-pic")[0];
-    icon.src = "images/folder-icon-16.png";
-
-    var taskbarWindow = document.getElementById("taskbar-projects");
-    taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-    taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-    taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-    taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-}
-
-function closeProjectsWindow() {
-    hideProjectsWindow();
-    var taskbarWindow = document.getElementById("taskbar-projects");
-    taskbarWindow.style.display = "none";
-
-    var indexTaskbar = taskbarWindows.indexOf("taskbar-projects");
-    var indexDragged = draggedWindowsHierarchy.indexOf("projects-window")
-    if (indexTaskbar > -1 && indexDragged > -1) {
-        taskbarWindows.splice(indexTaskbar, 1);
-        draggedWindowsHierarchy.splice(indexDragged, 1);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-}
-
-
-
-
-/* Other functions */
-
-
 //Returns if window is showing on desktop
 function windowOpen(elmnt) { 
     return elmnt.style.visibility == "visible";
@@ -357,7 +241,6 @@ function moveToTopOfHierarchy(elmnt) {
         document.getElementById(elmnt.id).style.zIndex = 0;
     }
     mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
-    styleTabs();
 }
 
 function toggleWindow(elmnt) {
@@ -372,91 +255,63 @@ function toggleWindow(elmnt) {
     }
 }
 
+function tabDown(elmnt) {
+    elmnt.style.borderBottom = "1px solid #FFFFFF"
+    elmnt.style.borderRight = "1px solid #FFFFFF"
+    elmnt.style.borderTop = "2px solid #6D6D6D"
+    elmnt.style.borderLeft = "2px solid #6D6D6D"
+}
+
+function tabUp(elmnt) {
+    elmnt.style.borderBottom = "2px solid #6D6D6D";
+    elmnt.style.borderRight = "2px solid #6D6D6D";
+    elmnt.style.borderTop = "1px solid #FFFFFF";
+    elmnt.style.borderLeft = "1px solid #FFFFFF";
+}
+
+/* TODO: style tabs is a big ol' race condition. gotta get into that async */
+
 function styleTabs() {
+    
     var firstDesktopWindow = draggedWindowsHierarchy[draggedWindowsHierarchy.length-1];
     var folderName = firstDesktopWindow.split("-")[0];
     var activeTaskbarWindow = "taskbar-" + folderName;
+    for (var i=0; i<taskbarWindows.length; i++) {
+        var taskbarWindow = document.getElementById(taskbarWindows[i]);
 
-
-    if (draggedWindowsHierarchy.length == 1) {
-        var desktopWindow = document.getElementById(draggedWindowsHierarchy[0]);
-        var taskbarWindow = document.getElementById(taskbarWindows[0]);
-        if (desktopWindow.style.visibility == "visible") {
-            console.log("hi")
-            taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-            taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-            taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-            taskbarWindow.style.borderRight = "1px solid #FFFFFF"
+        if (taskbarWindow.id == activeTaskbarWindow) {
+            tabDown(taskbarWindow);
         } else {
-            console.log("hi2")
-            taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-            taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-            taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-            taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
+            tabUp(taskbarWindow);
         }
-    } else {
-        for (var i=0; i<taskbarWindows.length; i++) {
-            var taskbarWindow = document.getElementById(taskbarWindows[i]);
-            if (taskbarWindow.id == activeTaskbarWindow && document.getElementById(firstDesktopWindow).style.visibility == "hidden") {
-                taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-                taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-                taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-                taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-            } else if (taskbarWindow.id == activeTaskbarWindow) {
-                taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-                taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-                taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-                taskbarWindow.style.borderRight = "1px solid #FFFFFF"
-            } else {
-                taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-                taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-                taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-                taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-            }
+        if (taskbarWindow.style.visibility == "hidden") {
+            tabUp(taskbarWindow)
         }
     }
 }
 
 function hideWindow(elmnt) {
     elmnt.style.visibility = "hidden";
-    var folderName = elmnt.id.split("-")[0];
-
-    document.getElementById(folderName + "-window").removeEventListener("click", function() {moveToTopOfHierarchy(document.getElementById(folderName + "-window"))});
-
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
     styleTabs();
-    taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-    taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-    taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-    taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-    
 }
 
 function showWindow(elmnt) {
     elmnt.style.visibility = "visible";
     var folderName = elmnt.id.split("-")[0];
-
-    document.getElementById(folderName + "-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById(folderName + "-window"))});
-
-    for (var i=0; i<taskbarWindows.length; i++) {
-        var taskbarWindow = document.getElementById(taskbarWindows[i]);
-        taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-        taskbarWindow.style.borderRight = "2px solid #6D6D6D";
-        taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-        taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-    }
- 
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-    taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-    taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-    taskbarWindow.style.borderRight = "1px solid #FFFFFF"
-    taskbarWindow.style.display = "flex";
     
+    var taskbarWindow = document.getElementById("taskbar-" + folderName);
+    taskbarWindow.style.display = "flex";
+
     if (!taskbarWindows.includes("taskbar-" + folderName)) {
         taskbarWindows.push("taskbar-" + folderName);
     }
+
+    for(var i=0; i<taskbarWindows.length; i++) {
+        document.getElementById(taskbarWindows[i]).style.order = i;
+    }
+
     moveToTopOfHierarchy(elmnt);
+    
 }
 
 function closeWindow(elmnt) {
@@ -468,7 +323,6 @@ function closeWindow(elmnt) {
 
     var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
     var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window")
-
     if (indexTaskbar > -1 && indexDragged > -1) {
         taskbarWindows.splice(indexTaskbar, 1);
         draggedWindowsHierarchy.splice(indexDragged, 1);
@@ -478,9 +332,9 @@ function closeWindow(elmnt) {
         document.getElementById(taskbarWindows[i]).style.order = i;
     }
 
+    console.log(taskbarWindows);
     styleTabs();
 }
-
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -504,14 +358,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("trash").addEventListener("mousedown", function() {dragElement(document.getElementById("trash"))});
 
     //My Projects window
-    //document.getElementById("projects-window").addEventListener("click", testFunction("projects-window"));
-    document.getElementById("window-projects-min").addEventListener("click", function() {hideWindow(document.getElementById("projects-window"))});
-    document.getElementById("window-projects-close").addEventListener("click", function() {closeWindow(document.getElementById("projects-window"))});
-
+    document.getElementById("projects-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("projects-window")); styleTabs();});
+    document.getElementById("window-projects-min").addEventListener("click", function() {hideWindow(document.getElementById("projects-window")); styleTabs();});
+    document.getElementById("window-projects-close").addEventListener("click", function() {closeWindow(document.getElementById("projects-window")); styleTabs();});
+    
     //Trash window
-    document.getElementById("window-trash-min").addEventListener("click", function() {hideWindow(document.getElementById("trash-window"))});
-    document.getElementById("window-trash-close").addEventListener("click", function() {closeWindow(document.getElementById("trash-window"))});
-
+    document.getElementById("trash-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("trash-window")); styleTabs();});
+    document.getElementById("window-trash-min").addEventListener("click", function() {hideWindow(document.getElementById("trash-window")); styleTabs();});
+    document.getElementById("window-trash-close").addEventListener("click", function() {closeWindow(document.getElementById("trash-window")); styleTabs();});
+    
     
     //Dragging windows
     document.getElementById("projects-windowheader").addEventListener("mousedown", function() {dragElement(document.getElementById("projects-window"))});
@@ -521,7 +376,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("taskbar-trash").addEventListener("click", function() {toggleWindow(document.getElementById("trash-window"))});
 
     //startmenu listeners
-    document.getElementById("menuitem-projects").addEventListener("click", function() {showProjectsWindow(); menuHide();});
+    document.getElementById("menuitem-projects").addEventListener("click", function() {showWindow(document.getElementById("projects-window")); menuHide();});
 
     //Resizing windows
     document.getElementById("project-handle").addEventListener("mousedown", resize(document.getElementById("projects-window")))
