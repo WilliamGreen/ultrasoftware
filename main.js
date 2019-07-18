@@ -89,11 +89,6 @@ function dragElement(elmnt) {
             mostRecentInteraction = elmnt.id;
         }
 
-
-            
-        
-        
-
         var folderName = elmnt.id.split("-")[0];
         
         for (var i=0; i<taskbarWindows.length; i++) {
@@ -119,8 +114,6 @@ function dragElement(elmnt) {
             
         }
         
-
-        
         
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
@@ -128,7 +121,6 @@ function dragElement(elmnt) {
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
-        
     }
 
     function elementDrag(e) {
@@ -166,6 +158,48 @@ function dragElement(elmnt) {
         mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
         
         
+    }
+}
+
+function resize(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    var handle = elmnt.children[0].children[3].children[2].children[0];
+    var window = document.getElementById(elmnt.id);
+    handle.onmousedown = resizeDragMouseDown;
+    
+
+    function resizeDragMouseDown(e) {
+        e = e || window.event;
+        document.body.style.cursor = "nw-resize"
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeResize;
+        document.onmousemove = resizeDrag;
+    }
+
+    function resizeDrag(e) {
+        var windowStyle = getComputedStyle(elmnt);
+        var windowWidth = parseInt(windowStyle.width);
+        var windowHeight = parseInt(windowStyle.height);
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+
+        if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+            elmnt.style.width = windowWidth - pos1 + "px";
+            elmnt.style.height = windowHeight - pos2 + "px";
+        }
+    }
+
+    function closeResize() {
+        document.body.style.cursor  = 'default';
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
 }
 
@@ -240,7 +274,6 @@ function closeProjectsWindow() {
         document.getElementById(taskbarWindows[i]).style.order = i;
     }
 
-    console.log(taskbarWindows);
 }
 
 function showTrashWindow() {
@@ -288,7 +321,6 @@ function closeTrashWindow() {
     for(var i=0; i<taskbarWindows.length; i++) {
         document.getElementById(taskbarWindows[i]).style.order = i;
     }
-    console.log(taskbarWindows);
 }
 
 
@@ -318,6 +350,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("window-projects-min").addEventListener("click", hideProjectsWindow);
     document.getElementById("window-projects-close").addEventListener("click", closeProjectsWindow);
 
+    //Trash window
+    document.getElementById("window-trash-min").addEventListener("click", hideTrashWindow);
+    document.getElementById("window-trash-close").addEventListener("click", closeTrashWindow);
+
     
     //Dragging windows
     document.getElementById("projects-windowheader").addEventListener("mousedown", dragElementOnTop("projects-window"));
@@ -327,4 +363,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     //startmenu listeners
     document.getElementById("menuitem-projects").addEventListener("click", function() {showProjectsWindow(); menuHide();});
+
+    //Resizing windows
+    document.getElementById("project-handle").addEventListener("mousedown", resize(document.getElementById("projects-window")))
+    document.getElementById("trash-handle").addEventListener("mousedown", resize(document.getElementById("trash-window")))
 });
