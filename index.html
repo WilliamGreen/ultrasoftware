@@ -26,7 +26,7 @@
 
                     <div class="window-wrap" id="projects-window">
                         <div class="window-background">
-                            <div class="window-titlebar">
+                            <div class="window-titlebar" id="projects-windowheader">
                                 <div class="window-titlebar-icon" id="titlebar icon"><img class="taskbar-titlebar-icon-pic" src="images/open-folder-16.png"></div>
                                 <div class="window-titlebar-text" id="windowheader">My Projects</div>
 
@@ -41,7 +41,7 @@
                                 <div class="window-titlebar-spacer"></div>
 
                                 <div class="window-titlebar-button" id="window-projects-close">
-                                    <div class="window-titlebar-close"></div>
+                                    <div class="window-titlebar-close" ></div>
                                 </div>
 
                                 <div class="window-titlebar-spacer"></div>
@@ -61,11 +61,12 @@
                                 <div class="window-bottombar-spacer"></div>
                                 <div class="window-bottombar"></div>
                             </div>
+                        </div>
                     </div>
 
                     <div class="window-wrap" id="trash-window">
                             <div class="window-background">
-                                <div class="window-titlebar">
+                                <div class="window-titlebar" id="trash-windowheader">
                                     <div class="window-titlebar-icon" id="titlebar icon"><img class="taskbar-titlebar-icon-pic" src="images/trash-icon-16.png"></div>
                                     <div class="window-titlebar-text" id="windowheader">Trash</div>
     
@@ -101,7 +102,7 @@
                                     <div class="window-bottombar"></div>
                                 </div>
                         </div>
-                    </div>
+                        </div>
             </div>
 
             
@@ -124,7 +125,15 @@
                     </div>
                 </div>
                 
+                <div class="taskbar-window" id="taskbar-projects">
+                        <div class="taskbar-window-icon"><img class="taskbar-window-icon-pic" src="images/folder-icon-16.png"></div>
+                        <div class="taskbar-window-text">My Projects</div>
+                </div>
 
+                <div class="taskbar-window" id="taskbar-trash">
+                        <div class="taskbar-window-icon"><img class="taskbar-window-icon-pic" src="images/trash-icon-16.png"></div>
+                        <div class="taskbar-window-text">Trash</div>
+                </div>
 
                 <div class="taskbar-click-area"></div>
 
