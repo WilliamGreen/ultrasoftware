@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Rectangle</title>
+    <desc>Created with Sketch.</desc>
+    <g id="win" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ms-paint-frame" transform="translate(-644.000000, -8.000000)" fill="#000000">
+            <g id="head">
+                <g transform="translate(4.000000, 4.000000)">
+                    <g id="button2" transform="translate(637.000000, 2.000000)">
+                        <g id="close" transform="translate(3.000000, 2.000000)">
+                            <path d="M0,0 L9,0 L9,2 L0,2 L0,0 Z M1,8 L8,8 L8,9 L1,9 L1,8 Z M8,2 L9,2 L9,9 L8,9 L8,2 Z M0,2 L1,2 L1,9 L0,9 L0,2 Z" id="Rectangle"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
