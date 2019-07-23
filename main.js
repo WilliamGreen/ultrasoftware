@@ -291,29 +291,10 @@ function hideWindow(elmnt) {
     elmnt.style.visibility = "hidden";
 }
 
-/*
-function showWindow(elmnt) {
-    elmnt.style.visibility = "visible";
-    var folderName = elmnt.id.split("-")[0];
-    
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    taskbarWindow.style.display = "flex";
-
-    if (!taskbarWindows.includes("taskbar-" + folderName)) {
-        taskbarWindows.push("taskbar-" + folderName);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-
-    moveToTopOfHierarchy(elmnt);
-    console.log(taskbarWindows)
-}
-*/
 
 var showWindow = function(elmnt) {
     return new Promise(function(resolve, reject) {
+        getFilesInWindow(elmnt);
         var display = false; var taskbarWindowCheck = false;
         elmnt.style.visibility = "visible";
         var folderName = elmnt.id.split("-")[0];
@@ -392,29 +373,9 @@ var closeWindow = function(elmnt) {
     })
 };
 
-/*
-function closeWindow(elmnt) {
-    hideWindow(elmnt);
-    var folderName = elmnt.id.split("-")[0];
-
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    taskbarWindow.style.display = "none";
-
-    var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
-    var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window")
-    if (indexTaskbar > -1 && indexDragged > -1) {
-        taskbarWindows.splice(indexTaskbar, 1);
-        draggedWindowsHierarchy.splice(indexDragged, 1);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-
-    console.log(taskbarWindows);
-    styleTabs();
+function getFilesInWindow(elmnt) {
+    document.getElementById("bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
 }
-*/
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -461,6 +422,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     //Resizing windows
     document.getElementById("project-handle").addEventListener("mousedown", resize(document.getElementById("projects-window")))
     document.getElementById("trash-handle").addEventListener("mousedown", resize(document.getElementById("trash-window")))
+
+    //Projects Folder Links
+    document.getElementById("will-git").addEventListener("dblclick", function() {window.open("https://github.com/WilliamGreen")});
+    document.getElementById("greg-git").addEventListener("dblclick", function() {window.open("https://github.com/greg-el")});
+
+
 
 
     //Without these it takes two clicks to drag an object. I don't know why.
