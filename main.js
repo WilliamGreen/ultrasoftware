@@ -4,30 +4,6 @@ var draggedWindowsHierarchy = [];
 var mostRecentInteraction = "";
 var programs = [];
 
-class Program {
-    constructor() {
-        this.state = "none";
-        this.name = "none";
-        this.element = "";
-        //TODO
-    }
-    getState() {
-        return this.state;
-    } 
-
-    setState(state) {
-        this.state = state;
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    setName(name) {
-        this.name = name;
-    }
-}
-
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -223,7 +199,7 @@ function menuToggle() {
     } else {
         menu.style.visibility = "hidden";
     }
-    console.log(programs)
+    console.log(draggedWindowsHierarchy)
 }
 
 function menuHide() {
@@ -330,21 +306,6 @@ var showWindow = function(elmnt) {
         if (!taskbarWindows.includes("taskbar-" + folderName)) {
             taskbarWindows.push("taskbar-" + folderName);
         }
-
-        var found = false;
-        for (var i=0; i<programs.length; i++) {
-            if (programs[i].getName() == folderName) {
-                found = true;
-            }
-        }
-
-        if (!found) {
-            var tempArray = new Program();
-            tempArray.setName(folderName);
-            tempArray.setState("open");
-            programs.push(tempArray);
-        }
-
 
         taskbarWindowCheck = taskbarWindows.includes("taskbar-" + folderName);
         display = elmnt.style.visibility == "visible";
