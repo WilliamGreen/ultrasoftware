@@ -2,6 +2,7 @@
 var taskbarWindows = [];
 var draggedWindowsHierarchy = [];
 var mostRecentInteraction = "";
+var programs = [];
 
 
 function dragElement(elmnt) {
@@ -43,16 +44,10 @@ function dragElement(elmnt) {
         for (var i=0; i<taskbarWindows.length; i++) {
             if (taskbarWindows[i].includes(folderName)) {
                 var taskbarWindow = document.getElementById("taskbar-" + folderName);
-                taskbarWindow.style.borderTop = "2px solid #6D6D6D"
-                taskbarWindow.style.borderLeft = "2px solid #6D6D6D"
-                taskbarWindow.style.borderBottom = "1px solid #FFFFFF"
-                taskbarWindow.style.borderRight = "1px solid #FFFFFF"
+                tabDown(taskbarWindow);
             } else {
                 var taskbarWindow = document.getElementById("taskbar-" + taskbarWindows[i].split("-")[1]);
-                taskbarWindow.style.borderTop = "1px solid #FFFFFF";
-                taskbarWindow.style.borderLeft = "1px solid #FFFFFF";
-                taskbarWindow.style.borderBottom = "2px solid #6D6D6D";
-                taskbarWindow.style.borderRight = "2px solid #6D6D6D";
+                tabUp(taskbarWindow);
             }
             
         }
@@ -229,7 +224,7 @@ function moveToTopOfHierarchy(elmnt) {
     if (indexDragged > -1) {
         draggedWindowsHierarchy.splice(indexDragged, 1);
         draggedWindowsHierarchy.push(elmnt.id);
-    } else {
+    } else if (elmnt.style.visibility != "hidden") {
         draggedWindowsHierarchy.push(elmnt.id);
     }
 
@@ -241,6 +236,9 @@ function moveToTopOfHierarchy(elmnt) {
         document.getElementById(elmnt.id).style.zIndex = 0;
     }
     mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
+
+    console.log(draggedWindowsHierarchy);
+
 }
 
 function toggleWindow(elmnt) {
@@ -256,17 +254,16 @@ function toggleWindow(elmnt) {
 }
 
 function tabDown(elmnt) {
-    elmnt.style.borderBottom = "1px solid #FFFFFF"
-    elmnt.style.borderRight = "1px solid #FFFFFF"
-    elmnt.style.borderTop = "2px solid #6D6D6D"
-    elmnt.style.borderLeft = "2px solid #6D6D6D"
+    elmnt.style.borderColor = "rgb(109, 109, 109) rgb(255, 255, 255) rgb(255, 255, 255) rgb(109, 109, 109)";
+    elmnt.style.borderWidth = "1px 2px 2px 1px";
+    elmnt.style.borderStyle = "solid";
 }
 
 function tabUp(elmnt) {
-    elmnt.style.borderBottom = "2px solid #6D6D6D";
-    elmnt.style.borderRight = "2px solid #6D6D6D";
-    elmnt.style.borderTop = "1px solid #FFFFFF";
-    elmnt.style.borderLeft = "1px solid #FFFFFF";
+    elmnt.style.borderColor = "rgb(255, 255, 255) rgb(109, 109, 109) rgb(109, 109, 109) rgb(255, 255, 255)";
+    elmnt.style.borderWidth = "1px 2px 2px 1px";
+    elmnt.style.borderStyle = "solid";
+
 }
 
 /* TODO: style tabs is a big ol' race condition. gotta get into that async */
@@ -291,11 +288,50 @@ function styleTabs() {
         }
     }
     console.log("finished styling tabs")
+
+    console.log(draggedWindowsHierarchy);
+
 }
 
 function hideWindow(elmnt) {
     elmnt.style.visibility = "hidden";
 }
+
+
+
+var showWindow = function(elmnt) {
+    return new Promise(function(resolve, reject) {
+        getFilesInWindow(elmnt);
+        var display = false; var taskbarWindowCheck = false;
+        elmnt.style.visibility = "visible";
+        var folderName = elmnt.id.split("-")[0];
+        
+        var taskbarWindow = document.getElementById("taskbar-" + folderName);
+        taskbarWindow.style.display = "flex";
+    
+        if (!taskbarWindows.includes("taskbar-" + folderName)) {
+            taskbarWindows.push("taskbar-" + folderName);
+        }
+
+        taskbarWindowCheck = taskbarWindows.includes("taskbar-" + folderName);
+        display = elmnt.style.visibility == "visible";
+    
+        for(var i=0; i<taskbarWindows.length; i++) {
+            document.getElementById(taskbarWindows[i]).style.order = i;
+        }
+    
+        moveToTopOfHierarchy(elmnt);
+
+        console.log(draggedWindowsHierarchy);
+
+        if (display && taskbarWindowCheck) {
+            resolve();
+        } else {
+            reject(console.log(display + "" + taskbarWindowCheck))
+        }
+    })
+}
+
 
 function showWindow(elmnt) {
     elmnt.style.visibility = "visible";
@@ -316,12 +352,17 @@ function showWindow(elmnt) {
     console.log(taskbarWindows)
 }
 
+function closeWindow(elmnt) {
+    hideWindow(elmnt);
+    var folderName = elmnt.id.split("-")[0];
+
 
 var closeWindow = function(elmnt) {
     return new Promise(function(resolve, reject){
         var display = false; var indexTaskbarCheck = false; var indexDraggedCheck = false;
         hideWindow(elmnt);
         var folderName = elmnt.id.split("-")[0];
+
 
         var taskbarWindow = document.getElementById("taskbar-" + folderName);
         taskbarWindow.style.display = "none";
@@ -332,10 +373,12 @@ var closeWindow = function(elmnt) {
         var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
         var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
 
+
         if (indexTaskbar > -1 && indexDragged > -1) {
             taskbarWindows.splice(indexTaskbar, 1);
             draggedWindowsHierarchy.splice(indexDragged, 1);
         };
+
 
         var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
         var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
@@ -351,6 +394,7 @@ var closeWindow = function(elmnt) {
         };
 
 
+
         for(var i=0; i<taskbarWindows.length; i++) {
             document.getElementById(taskbarWindows[i]).style.order = i;
         };
@@ -364,29 +408,9 @@ var closeWindow = function(elmnt) {
     })
 };
 
-/*
-function closeWindow(elmnt) {
-    hideWindow(elmnt);
-    var folderName = elmnt.id.split("-")[0];
-
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    taskbarWindow.style.display = "none";
-
-    var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
-    var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window")
-    if (indexTaskbar > -1 && indexDragged > -1) {
-        taskbarWindows.splice(indexTaskbar, 1);
-        draggedWindowsHierarchy.splice(indexDragged, 1);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-
-    console.log(taskbarWindows);
-    styleTabs();
+function getFilesInWindow(elmnt) {
+    document.getElementById("bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
 }
-*/
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -404,20 +428,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName("clock-hoverable")[0].addEventListener("mouseout", hideTimePopup);
 
     //desktop icons
-    document.getElementById("projects").addEventListener("dblclick", function() {showWindow(document.getElementById("projects-window"))});
-    document.getElementById("trash").addEventListener("dblclick", function() {showWindow(document.getElementById("trash-window"))});
+    document.getElementById("projects").addEventListener("dblclick", function() {showWindow(document.getElementById("projects-window")).then(styleTabs());});
+    document.getElementById("trash").addEventListener("dblclick", function() {showWindow(document.getElementById("trash-window")).then(styleTabs());});
     document.getElementById("projects").addEventListener("mousedown", function() {dragElement(document.getElementById("projects"))});
     document.getElementById("trash").addEventListener("mousedown", function() {dragElement(document.getElementById("trash"))});
 
     //My Projects window
     document.getElementById("projects-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("projects-window")); styleTabs();});
     document.getElementById("window-projects-min").addEventListener("click", function() {hideWindow(document.getElementById("projects-window")); styleTabs();});
-    document.getElementById("window-projects-close").addEventListener("click", function() {closeWindow(document.getElementById("projects-window")).then(styleTabs());});
+
+    document.getElementById("window-projects-close").addEventListener("click", function() {closeWindow(document.getElementById("projects-window"));});
+
+
     
     //Trash window
     document.getElementById("trash-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("trash-window")); styleTabs();});
     document.getElementById("window-trash-min").addEventListener("click", function() {hideWindow(document.getElementById("trash-window")); styleTabs();});
-    document.getElementById("window-trash-close").addEventListener("click", function() {closeWindow(document.getElementById("trash-window")); styleTabs();});
+
+    document.getElementById("window-trash-close").addEventListener("click", function() {closeWindow(document.getElementById("trash-window"));});
+
     
     
     //Dragging windows
@@ -433,6 +462,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     //Resizing windows
     document.getElementById("project-handle").addEventListener("mousedown", resize(document.getElementById("projects-window")))
     document.getElementById("trash-handle").addEventListener("mousedown", resize(document.getElementById("trash-window")))
+
+    //Projects Folder Links
+    document.getElementById("will-git").addEventListener("dblclick", function() {window.open("https://github.com/WilliamGreen")});
+    document.getElementById("greg-git").addEventListener("dblclick", function() {window.open("https://github.com/greg-el")});
+
+
 
 
     //Without these it takes two clicks to drag an object. I don't know why.
