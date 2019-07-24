@@ -128,10 +128,17 @@ function resize(elmnt) {
         pos4 = e.clientY;
 
 
-        if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+        //if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+        //    elmnt.style.width = windowWidth - pos1 + "px";
+        //    elmnt.style.height = windowHeight - pos2 + "px";
+        //}
+
+        var area = (windowWidth-pos1) * (windowHeight-pos2);
+        if (area > 100000) {
             elmnt.style.width = windowWidth - pos1 + "px";
             elmnt.style.height = windowHeight - pos2 + "px";
         }
+        console.log(area)
     }
 
     function closeResize() {
@@ -236,9 +243,7 @@ function moveToTopOfHierarchy(elmnt) {
         document.getElementById(elmnt.id).style.zIndex = 0;
     }
     mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
-
     console.log(draggedWindowsHierarchy);
-
 }
 
 function toggleWindow(elmnt) {
@@ -263,7 +268,6 @@ function tabUp(elmnt) {
     elmnt.style.borderColor = "rgb(255, 255, 255) rgb(109, 109, 109) rgb(109, 109, 109) rgb(255, 255, 255)";
     elmnt.style.borderWidth = "1px 2px 2px 1px";
     elmnt.style.borderStyle = "solid";
-
 }
 
 /* TODO: style tabs is a big ol' race condition. gotta get into that async */
@@ -288,15 +292,12 @@ function styleTabs() {
         }
     }
     console.log("finished styling tabs")
-
     console.log(draggedWindowsHierarchy);
-
 }
 
 function hideWindow(elmnt) {
     elmnt.style.visibility = "hidden";
 }
-
 
 
 var showWindow = function(elmnt) {
@@ -333,36 +334,11 @@ var showWindow = function(elmnt) {
 }
 
 
-function showWindow(elmnt) {
-    elmnt.style.visibility = "visible";
-    var folderName = elmnt.id.split("-")[0];
-    
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    taskbarWindow.style.display = "flex";
-
-    if (!taskbarWindows.includes("taskbar-" + folderName)) {
-        taskbarWindows.push("taskbar-" + folderName);
-    }
-
-    for(var i=0; i<taskbarWindows.length; i++) {
-        document.getElementById(taskbarWindows[i]).style.order = i;
-    }
-
-    moveToTopOfHierarchy(elmnt);
-    console.log(taskbarWindows)
-}
-
-function closeWindow(elmnt) {
-    hideWindow(elmnt);
-    var folderName = elmnt.id.split("-")[0];
-
-
 var closeWindow = function(elmnt) {
     return new Promise(function(resolve, reject){
         var display = false; var indexTaskbarCheck = false; var indexDraggedCheck = false;
         hideWindow(elmnt);
         var folderName = elmnt.id.split("-")[0];
-
 
         var taskbarWindow = document.getElementById("taskbar-" + folderName);
         taskbarWindow.style.display = "none";
@@ -373,12 +349,10 @@ var closeWindow = function(elmnt) {
         var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
         var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
 
-
         if (indexTaskbar > -1 && indexDragged > -1) {
             taskbarWindows.splice(indexTaskbar, 1);
             draggedWindowsHierarchy.splice(indexDragged, 1);
         };
-
 
         var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
         var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
@@ -392,7 +366,6 @@ var closeWindow = function(elmnt) {
         if (draggedWindowsHierarchy.indexOf(indexDragged) == -1) {
             indexDraggedCheck = true;
         };
-
 
 
         for(var i=0; i<taskbarWindows.length; i++) {
@@ -409,7 +382,7 @@ var closeWindow = function(elmnt) {
 };
 
 function getFilesInWindow(elmnt) {
-    document.getElementById("bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
+    document.getElementById("window-projects-bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
 }
 
 
@@ -436,17 +409,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     //My Projects window
     document.getElementById("projects-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("projects-window")); styleTabs();});
     document.getElementById("window-projects-min").addEventListener("click", function() {hideWindow(document.getElementById("projects-window")); styleTabs();});
-
     document.getElementById("window-projects-close").addEventListener("click", function() {closeWindow(document.getElementById("projects-window"));});
-
-
     
     //Trash window
     document.getElementById("trash-window").addEventListener("click", function() {moveToTopOfHierarchy(document.getElementById("trash-window")); styleTabs();});
     document.getElementById("window-trash-min").addEventListener("click", function() {hideWindow(document.getElementById("trash-window")); styleTabs();});
-
     document.getElementById("window-trash-close").addEventListener("click", function() {closeWindow(document.getElementById("trash-window"));});
-
     
     
     //Dragging windows
@@ -471,8 +439,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
     //Without these it takes two clicks to drag an object. I don't know why.
-    //dragElement(document.getElementById("projects"));
-    //dragElement(document.getElementById("trash"));
-    //dragElement(document.getElementById("projects-window"));
-    //dragElement(document.getElementById("trash-window"));
+    dragElement(document.getElementById("projects"));
+    dragElement(document.getElementById("trash"));
+    dragElement(document.getElementById("projects-window"));
+    dragElement(document.getElementById("trash-window"));
 });
