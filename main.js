@@ -128,10 +128,17 @@ function resize(elmnt) {
         pos4 = e.clientY;
 
 
-        if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+        //if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+        //    elmnt.style.width = windowWidth - pos1 + "px";
+        //    elmnt.style.height = windowHeight - pos2 + "px";
+        //}
+
+        var area = (windowWidth-pos1) * (windowHeight-pos2);
+        if (area > 100000) {
             elmnt.style.width = windowWidth - pos1 + "px";
             elmnt.style.height = windowHeight - pos2 + "px";
         }
+        console.log(area)
     }
 
     function closeResize() {
@@ -375,7 +382,7 @@ var closeWindow = function(elmnt) {
 };
 
 function getFilesInWindow(elmnt) {
-    document.getElementById("bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
+    document.getElementById("window-projects-bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
 }
 
 
