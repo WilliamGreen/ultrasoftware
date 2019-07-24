@@ -43,7 +43,16 @@ class Program {
     setHierarchy(hierarchy) {
         this.hierarchy = hierarchy;
     }
+
+    getTaskbarElement() {
+        return document.getElementById("taskbar-" + this.name);
+    }
+
+    getWindowElement() {
+        return document.getElementById("window-" + this.name);
+    }
 }
+
 
 
 function dragElement(elmnt) {
@@ -256,6 +265,16 @@ function menuHide() {
    ----------------------------------------------------
 */
 
+
+function getWindowObject(name) {
+    for (var i=0; i<programs.length; i++) {
+        if (programs[i].getName() == name) {
+            return programs[i];
+        }
+    }
+    throw new Error("program not found");
+}
+
 //Returns if window is showing on desktop
 function windowOpen(elmnt) { 
     return elmnt.style.visibility == "visible";
@@ -279,18 +298,19 @@ function moveToTopOfHierarchy(elmnt) {
         document.getElementById(elmnt.id).style.zIndex = 0;
     }
     mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
-    console.log(draggedWindowsHierarchy);
+
 }
 
 function toggleWindow(elmnt) {
-    var folderName = elmnt.id.split("-")[0];
-    var taskbarWindow = document.getElementById("taskbar-" + folderName);
-    if (windowOpen(elmnt) && taskbarWindows.includes(taskbarWindow.id)) {
-        showWindow(elmnt); 
-    } else if(windowOpen(elmnt)) {
-        closeWindow(elmnt);
+    var folderName = elmnt.id.split("-")[1];
+
+    var object = getWindowObject(folderName);
+    var taskbarElement = object.getTaskbarElement();
+    var windowElement = object.getWindowElement();
+    if (windowElement.style.visibility == "hidden") {
+        showWindow(windowElement);
     } else {
-        showWindow(elmnt);
+        hideWindow(windowElement);
     }
 }
 
@@ -306,24 +326,19 @@ function tabUp(elmnt) {
     elmnt.style.borderStyle = "solid";
 }
 
-function styleTabs() {
-    var firstDesktopWindow = draggedWindowsHierarchy[draggedWindowsHierarchy.length-1];
-    var folderName = firstDesktopWindow.split("-")[0];
-    var activeTaskbarWindow = "taskbar-" + folderName;
-    for (var i=0; i<taskbarWindows.length; i++) {
-        var taskbarWindow = document.getElementById(taskbarWindows[i]);
+function styleTabs() { //TODO make this work next
 
-        if (taskbarWindow.id == activeTaskbarWindow) {
-            tabDown(taskbarWindow);
+    for (var i=0; i<programs.length; i++) {
+        console.log(i)
+        var object = getWindowObject(programs[i]);
+        var taskbarElement = object.getTaskbarElement();
+        var windowElement = object.getWindowElement();
+        if (windowElement.style.visibility == "visible") {
+            tabUp(taskbarElement);
         } else {
-            tabUp(taskbarWindow);
-        }
-        if (taskbarWindow.style.visibility == "hidden") {
-            tabUp(taskbarWindow)
+            tabDown(taskbarElement);
         }
     }
-    console.log("finished styling tabs")
-    console.log(draggedWindowsHierarchy);
 }
 
 function hideWindow(elmnt) {
@@ -337,27 +352,11 @@ var showWindow = function(elmnt) {
         elmnt.style.visibility = "visible";
         var folderName = elmnt.id.split("-")[1];
         
-        var taskbarWindow = document.getElementById("taskbar-" + folderName);
+        var object = getWindowObject(folderName);
+        var taskbarWindow = object.getTaskbarElement();
         taskbarWindow.style.display = "flex";
-    
-
-        var found = false;
-        var index = -1;
-        for (var i=0; i<programs.length; i++) {
-            if (programs[i].getName() == folderName) {
-                found = true;
-                index == i;
-            }
-        }
-
-        if (!found) {
-            programs.push(new Program(folderName, "open", "active", 0));
-        } else {
-            programs[i].setTabState("active");
-            programs[i].setWindowState("open");
-        }
-
-
+        object.setTabState("active");
+        object.setWindowState("visible");
 
     
         //for(var i=0; i<taskbarWindows.length; i++) {
@@ -395,6 +394,8 @@ var closeWindow = function(elmnt) {
             }
         }
 
+        //console.log(programs[i])
+
         programs[i].setTabState("inactive");
         programs[i].setWindowState("closed");
         
@@ -414,6 +415,10 @@ function getFilesInWindow(elmnt) {
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    programs.push(new Program("projects", "hidden", "none", 0));
+    programs.push(new Program("trash", "hidden", "none", 0));
+
+
     var now = new Date();
     var seconds = now.getSeconds();
     var waitTime = (60-seconds) * 1000;
