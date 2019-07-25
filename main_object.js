@@ -282,41 +282,30 @@ function windowOpen(elmnt) {
 
 //Pushes the selected window to the front of page
 function moveToTopOfHierarchy(elmnt) {  //TODO guhh get this working
+    console.log(programs)
     var elmntName = elmnt.id.split("-")[1];
     var topObject = getWindowObject(elmntName).getName();
 
-    var heirDict = {};
     var oldPos = -1;
-
     for (var i=0; i<programs.length; i++) {
-        heirDict[programs[i].getName()] = programs[i].getHierarchy();
         if (programs[i].getName() == topObject) {
             oldPos = i;
         }
     }
 
-    //console.log(oldPos)
-    console.log(heirDict)
-    for (var i=0; i<heirDict.length; i++) {
-        console.log(heirDict[i])
-    }
-
+    var oldObject = programs[oldPos];
 
     for (var i=0; i<oldPos+1; i++) {
-        console.log("topObject = " + topObject);
-        console.log(programs[i].getName());
-        var object = getWindowObject(programs[i].getName());
-        console.log("object = " + object.getName());
-        if (topObject == object.getName()) {
-            object.setHierarchy(0);
-            console.log("setting hierarchy for:" + object.getName())
-        } else {
-            console.log("incrimenting?")
-            object.setHierarchy(object.getHierarchy()+1);
-        }
-        //console.log(object.getHierarchy());
+        programs[i].setHierarchy(programs[i].getHierarchy()+1);
     }
 
+    programs[0] = oldObject;
+
+    
+
+    for (var i=0; i<programs.length; i++) {
+        console.log(programs[i]);
+    }
 
 }
     
