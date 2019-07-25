@@ -324,6 +324,7 @@ function styleTabs() { //TODO make this work next
             object.setTabState("up")
         }
     }
+    console.log("finished styling tabs")
 }
 
 function hideWindow(elmnt) {
