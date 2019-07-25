@@ -281,7 +281,49 @@ function windowOpen(elmnt) {
 }
 
 //Pushes the selected window to the front of page
-function moveToTopOfHierarchy(elmnt) {
+function moveToTopOfHierarchy(elmnt) {  //TODO guhh get this working
+    var elmntName = elmnt.id.split("-")[1];
+    var topObject = getWindowObject(elmntName).getName();
+
+    var heirDict = {};
+    var oldPos = -1;
+
+    for (var i=0; i<programs.length; i++) {
+        heirDict[programs[i].getName()] = programs[i].getHierarchy();
+        if (programs[i].getName() == topObject) {
+            oldPos = i;
+        }
+    }
+
+    //console.log(oldPos)
+    console.log(heirDict)
+    for (var i=0; i<heirDict.length; i++) {
+        console.log(heirDict[i])
+    }
+
+
+    for (var i=0; i<oldPos+1; i++) {
+        console.log("topObject = " + topObject);
+        console.log(programs[i].getName());
+        var object = getWindowObject(programs[i].getName());
+        console.log("object = " + object.getName());
+        if (topObject == object.getName()) {
+            object.setHierarchy(0);
+            console.log("setting hierarchy for:" + object.getName())
+        } else {
+            console.log("incrimenting?")
+            object.setHierarchy(object.getHierarchy()+1);
+        }
+        //console.log(object.getHierarchy());
+    }
+
+
+}
+    
+
+
+
+/*
     var indexDragged = draggedWindowsHierarchy.indexOf(elmnt.id);
     if (indexDragged > -1) {
         draggedWindowsHierarchy.splice(indexDragged, 1);
@@ -300,12 +342,12 @@ function moveToTopOfHierarchy(elmnt) {
     mostRecentInteraction = draggedWindowsHierarchy[draggedWindowsHierarchy.length -1];
 
 }
+*/
 
 function toggleWindow(elmnt) {
     var folderName = elmnt.id.split("-")[1];
 
     var object = getWindowObject(folderName);
-    var taskbarElement = object.getTaskbarElement();
     var windowElement = object.getWindowElement();
     if (windowElement.style.visibility == "hidden") {
         showWindow(windowElement);
@@ -329,8 +371,7 @@ function tabUp(elmnt) {
 function styleTabs() { //TODO make this work next
 
     for (var i=0; i<programs.length; i++) {
-        console.log(i)
-        var object = getWindowObject(programs[i]);
+        var object = getWindowObject(programs[i].getName());
         var taskbarElement = object.getTaskbarElement();
         var windowElement = object.getWindowElement();
         if (windowElement.style.visibility == "visible") {
