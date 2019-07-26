@@ -347,25 +347,16 @@ var closeWindow = function(elmnt) {
         };
 
         var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
-        var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
+        taskbarWindows.splice(indexTaskbar, 1);
 
-        if (indexTaskbar > -1 && indexDragged > -1) {
-            taskbarWindows.splice(indexTaskbar, 1);
-            draggedWindowsHierarchy.splice(indexDragged, 1);
-        };
-
-        var indexTaskbar = taskbarWindows.indexOf("taskbar-" + folderName);
-        var indexDragged = draggedWindowsHierarchy.indexOf(folderName + "-window");
-
-        console.log(indexTaskbar + "" + indexDragged)
-
-        if (taskbarWindows.indexOf(indexTaskbar) == -1) {
-            indexTaskbarCheck = true;
-        };
-
-        if (draggedWindowsHierarchy.indexOf(indexDragged) == -1) {
-            indexDraggedCheck = true;
-        };
+        var tempCount = 0;
+        var nextInHierarchy = "";
+        for (var i=0; i<programs.length; i++) {
+            if (programs[i].getHierarchy() > tempCount && programs[i].getName() != object.getName()) {
+                tempCount == programs[i].getHierarchy();
+                nextInHierarchy = programs[i];
+            }
+        }
 
 
         for(var i=0; i<taskbarWindows.length; i++) {
