@@ -419,6 +419,40 @@ function taskbarWindowToggle(elmnt) {
     }
 }
 
+function startup() {
+    var startupText = [
+        "E:\>boot -l c",
+        "Booting from drive C...",
+        "Starting MS-DOS...",
+        "\n HIMEM is testing extended memory...",
+        ""
+    ];
+
+    var baseWait = 0;
+    
+    for (var i=0; i<startupText.length; i++) {
+        var wait = Math.floor(Math.random() * 1000);
+        addTimeout(i, baseWait+wait, startupText);
+        baseWait+=500;
+    }
+}
+
+function addTimeout(i, wait, startupText) {
+    console.wait
+    setTimeout(() => {addToStartup(i, startupText);}, wait);
+}
+
+function addToStartup(i, startupText) {
+    var startupScreen = document.getElementsByClassName("startup")[0];
+    var node = document.createElement("li");
+    var text = document.createTextNode(startupText[i]);
+    node.append(text);
+    startupScreen.appendChild(node);
+    if(i == startupText.length-1) {
+        document.getElementById("test").style.visibility = "hidden";
+    }
+}
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     programs.push(new Program("projects", "hidden", "none", 0, 0));
@@ -486,4 +520,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     dragElement(document.getElementById("window-trash"));
     resize(document.getElementById("window-projects"));
     resize(document.getElementById("window-trash"));
-});
+
+    startup();
+})
