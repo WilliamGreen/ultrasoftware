@@ -423,6 +423,41 @@ function taskbarWindowToggle(elmnt) {
     }
 }
 
+function startup() {
+    var wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_00").style.visibility = "visible"}, wait);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_01").style.visibility = "visible"}, wait+500);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_02").style.visibility = "visible"}, wait+1000);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_03").style.visibility = "visible"}, wait+1500);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_04").style.visibility = "visible"}, wait+2000);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_05").style.visibility = "visible"}, wait+2500);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_06").style.visibility = "visible"}, wait+3000);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_07").style.visibility = "visible"}, wait+3500);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_08").style.visibility = "visible"}, wait+4000);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementById("sut_09").style.visibility = "visible"}, wait+4500);
+    wait = Math.floor(Math.random() * 500);
+    setTimeout(function() {document.getElementsByClassName("startup")[0].style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_00").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_01").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_02").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_03").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_04").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_05").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_06").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_07").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_08").style.visibility = "hidden"}, wait+5000);
+    setTimeout(function() {document.getElementById("sut_09").style.visibility = "hidden"}, wait+5000);
+}
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     programs.push(new Program("projects", "hidden", "none", 0, 0));
@@ -490,4 +525,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     dragElement(document.getElementById("window-trash"));
     resize(document.getElementById("window-projects"));
     resize(document.getElementById("window-trash"));
+
+    startup();
 });

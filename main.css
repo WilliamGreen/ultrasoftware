@@ -19,6 +19,23 @@ body {
     user-select: none;
 }
 
+.startup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 100;
+    position: absolute;
+}
+
+.startup-text {
+    width: 100%;
+    height: 2%;
+    color: #F6CBCA;
+    visibility: hidden;
+}
+
 .taskbar {
     display:flex;
     flex-direction: row;
