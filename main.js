@@ -391,7 +391,7 @@ var closeWindow = function(elmnt) {
         var tempCount = 0;
         var nextInHierarchy = "";
         for (var i=0; i<programs.length; i++) {
-            if (programs[i].getHierarchy() > tempCount && programs[i].getHierarchy() != 10) {
+            if (programs[i].getHierarchy() > tempCount && programs[i].getName() != object.getName()) {
                 tempCount == programs[i].getHierarchy();
                 nextInHierarchy = programs[i];
             }
