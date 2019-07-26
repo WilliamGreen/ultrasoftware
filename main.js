@@ -58,9 +58,9 @@ function dragElement(elmnt) {
     if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         if (draggedWindowsHierarchy.includes(elmnt.id)) {
-            document.getElementById(elmnt.id).style.zIndex = 11;
+            document.getElementById(elmnt.id).style.zIndex = 9;
         } else {
-            document.getElementById(elmnt.id).style.zIndex = 11;
+            document.getElementById(elmnt.id).style.zIndex = 9;
         }
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
     } else {
@@ -74,9 +74,9 @@ function dragElement(elmnt) {
         e = e || window.event;
         e.preventDefault();
         if (draggedWindowsHierarchy.includes(elmnt.id)) {
-            document.getElementById(elmnt.id).style.zIndex = 11;
+            document.getElementById(elmnt.id).style.zIndex = 9;
         } else {
-            document.getElementById(elmnt.id).style.zIndex = 11;
+            document.getElementById(elmnt.id).style.zIndex = 9;
         }
 
 
@@ -128,8 +128,8 @@ function dragElement(elmnt) {
 function resize(elmnt) {
     
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    var handle = elmnt.children[0].children[3].children[2].children[0];
-    var window = document.getElementById(elmnt.id);
+    var window = document.getElementById(elmnt.id)
+    var handle = elmnt.getElementsByClassName("window-resize-handle")[0];
     handle.onmousedown = resizeDragMouseDown;
     
     
@@ -154,15 +154,8 @@ function resize(elmnt) {
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-
-
-        //if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
-
-            elmnt.style.width = windowWidth - pos1 + "px";
-            elmnt.style.height = windowHeight - pos2 + "px";
-
-
-
+        elmnt.style.width = windowWidth - pos1 + "px";
+        elmnt.style.height = windowHeight - pos2 + "px";
     }
 
     function closeResize() {

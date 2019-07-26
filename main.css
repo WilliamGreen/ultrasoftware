@@ -233,6 +233,8 @@ body {
     top: 30px;
     left: 190px;
     z-index: 1;
+    min-width: 200px;
+    min-height: 200px;
 }
 
 .window-resize-handle {
@@ -245,6 +247,7 @@ body {
 
 
 .window-background {
+    padding: 2px;
     display:flex;
     flex-direction: column;
     background-color: #C3C7CB;
@@ -278,9 +281,7 @@ body {
     display:flex;
     flex-direction: row;
     background-color: #00207D;
-    width: 99.5%;
-    margin-left: 2px;
-    margin-top: 2px;
+
     height: 18px;
 }
 
@@ -348,10 +349,6 @@ body {
     margin-top: 3px;
 }
 
-.window-titlebar-spacer {
-    width: 2px;
-    height: 0px;
-}
 
 .window-toolbar {
     background-color: #C3C7CB;
@@ -371,42 +368,42 @@ body {
 }
 
 .window-main {
+    box-sizing: border-box;
     display:flex;
     flex-direction: row;
-    width: 99.3%;
-    margin-left: 2px;
+    width: 100%;
     background-color: #FFF;
     border-left:2px solid #434547;
     border-top:2px solid #434547;
     border-right:1px solid #E1E3E5;
     border-bottom:1px solid #E1E3E5;
-    flex-grow: 100;
+    flex-grow: 1;
 }
 
 .window-bottombar-wrap {
     display: flex;
     flex-direction: row;
-    width: 99.5%;
-    margin-top: 3px;
-    margin-left: 1.5px;
-    margin-bottom: 1px;
+    width: 100%;
 }
 
 .window-bottombar-left {
     font-size: 12px;
-    flex-grow: 50;
+    flex-grow: 1;
     margin-bottom:1px;
+    margin-right: 2px;
     border-left:1px solid #868A8E;
     border-top:1px solid #868A8E;
     border-right:1px solid #FFF;
     border-bottom:1px solid #FFF;
+    box-shadow: 2px 0px 0px #c3c7cb;
     height: 15px;
 }
 
 
 .window-bottombar-right {
-    flex-grow: 50;
+    flex-grow: 1;
     margin-bottom:1px;
+    margin-left: 1px;
     border-left:1px solid #868A8E;
     border-top:1px solid #868A8E;
     border-right:1px solid #FFF;
