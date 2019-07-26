@@ -157,9 +157,12 @@ function resize(elmnt) {
 
 
         //if (windowWidth-pos1 >= 584.4 && windowHeight-pos2 >= 389.6) {
+
             elmnt.style.width = windowWidth - pos1 + "px";
             elmnt.style.height = windowHeight - pos2 + "px";
-        //}
+
+
+
     }
 
     function closeResize() {
@@ -411,7 +414,7 @@ var closeWindow = function(elmnt) {
 }
 
 function getFilesInWindow(elmnt) {
-    document.getElementById("bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
+    document.getElementById("window-projects-bottombar-left").innerHTML = document.getElementById("window-projects-main").children.length + " object(s)";
 }
 
 function taskbarWindowToggle(elmnt) {
