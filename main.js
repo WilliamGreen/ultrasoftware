@@ -421,10 +421,15 @@ function taskbarWindowToggle(elmnt) {
 
 function startup() {
     var startupText = [
+        "PENTIUM-S CPU at 166mhz", 
+        "Memory Test : 65536K OK",
         "E:\>boot -l c",
         "Booting from drive C...",
         "Starting MS-DOS...",
-        "\n HIMEM is testing extended memory...",
+        "HIMEM is testing extended memory...",
+        "Reading MOUSEDRV.INI initilization file",
+        "Searching for mouse...",
+        "",
         ""
     ];
 
