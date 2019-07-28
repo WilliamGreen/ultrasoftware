@@ -62,7 +62,7 @@ function dragElement(elmnt) {
         if (draggedWindowsHierarchy.includes(elmnt.id)) {
             document.getElementById(elmnt.id).style.zIndex = 9;
         } else {
-            document.getElementById(elmnt.id).style.zIndex = 9;
+            document.getElementById(elmnt.id).style.zIndex = 11;
         }
         document.getElementById(
             elmnt.id + "header"
@@ -78,7 +78,7 @@ function dragElement(elmnt) {
         if (draggedWindowsHierarchy.includes(elmnt.id)) {
             document.getElementById(elmnt.id).style.zIndex = 9;
         } else {
-            document.getElementById(elmnt.id).style.zIndex = 9;
+            document.getElementById(elmnt.id).style.zIndex = 11;
         }
 
         var folderName = elmnt.id.split("-")[1];
@@ -492,7 +492,7 @@ function addToStartup(i, startupText) {
             "hidden";
     }
     if (i == startupText.length-1) {
-        document.getElementById("startup-background").style.visibility = "hidden";
+        document.getElementById("startup-background").style.display = "none";
     }
 }
 
@@ -517,10 +517,10 @@ window.addEventListener("DOMContentLoaded", event => {
         .addEventListener("click", menuToggle);
 
     document
-        .getElementsByClassName("clock-hoverable")[0]
+        .getElementsByClassName("clock-hover")[0]
         .addEventListener("mouseover", showTimePopup);
     document
-        .getElementsByClassName("clock-hoverable")[0]
+        .getElementsByClassName("clock-hover")[0]
         .addEventListener("mouseout", hideTimePopup);
 
     //desktop icons

@@ -220,8 +220,10 @@ body {
 
 .clock {
     font-size: 13px;
-    top:5px;
-    left:97.8%;
+    text-align: right;
+    padding-right: 5px;
+    margin-top: 2px;
+    top:10px;
 }
 
 .clock-popup {
@@ -235,7 +237,7 @@ body {
     text-align: center;
 }
 
-.clock-hoverable {
+.clock-hover {
     height: 23px;
     width: 60px;
     position: absolute;
