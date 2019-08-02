@@ -50,6 +50,38 @@ class Program {
     getWindowElement() {
         return document.getElementById("window-" + this.name);
     }
+
+    setWindowHeight(windowHeight) {
+        this.windowHeight = windowHeight; 
+    }
+
+    getWindowHeight() {
+        return this.windowHeight;
+    }
+
+    setWindowWidth(windowWidth) {
+        this.windowWidth = windowWidth; 
+    }
+
+    getWindowWidth() {
+        return this.windowWidth;
+    }
+
+    setWindowLeft(windowLeft) {
+        this.windowLeft = windowLeft; 
+    }
+
+    getWindowLeft() {
+        return this.windowLeft;
+    }
+
+    setWindowTop(windowTop) {
+        this.windowTop = windowTop; 
+    }
+
+    getWindowTop() {
+        return this.windowTop;
+    }
 }
 
 function dragElement(elmnt) {
@@ -230,7 +262,6 @@ function menuToggle() {
     } else {
         menu.style.visibility = "hidden";
     }
-    console.log(programs);
 }
 
 function menuHide() {
@@ -319,7 +350,6 @@ function styleTabs() {
         var object = getWindowObject(programs[i].getName());
         var taskbarElement = object.getTaskbarElement();
         var windowElement = object.getWindowElement();
-        console.log(object.getName());
         if (
             object.getHierarchy() == 10 &&
             windowElement.style.visibility == "visible"
@@ -331,7 +361,6 @@ function styleTabs() {
             object.setTabState("up");
         }
     }
-    console.log("finished styling tabs");
 }
 
 function hideWindow(elmnt) {
@@ -348,7 +377,10 @@ function hideWindow(elmnt) {
         }
     }
 
-    moveToTopOfHierarchy(nextInHierarchy.getWindowElement());
+    if (!nextInHierarchy == "") {
+        moveToTopOfHierarchy(nextInHierarchy.getWindowElement());
+    }
+
 }
 
 var showWindow = function(elmnt) {
@@ -370,6 +402,7 @@ var showWindow = function(elmnt) {
         for (var i = 0; i < taskbarWindows.length; i++) {
             document.getElementById(taskbarWindows[i]).style.order = i;
         }
+
 
         moveToTopOfHierarchy(elmnt);
 
@@ -404,14 +437,17 @@ var closeWindow = function(elmnt) {
             }
         }
 
-        moveToTopOfHierarchy(nextInHierarchy.getWindowElement());
+        if (!nextInHierarchy == "") {
+            moveToTopOfHierarchy(nextInHierarchy.getWindowElement());
+        }
+
+        
 
         for (var i = 0; i < taskbarWindows.length; i++) {
             document.getElementById(taskbarWindows[i]).style.order = i;
         }
 
         if (true) {
-            console.log("finished closing window");
             resolve("window closed");
         } else {
             reject(
@@ -436,6 +472,13 @@ function taskbarWindowToggle(elmnt) {
         showWindow(elmnt);
         object.setTabState("down");
     }
+}
+
+function maxWindow(elmnt) {
+    var folderName = elmnt.id.split("-")[1];
+    var object = getWindowObject(folderName);
+    object.setWindowHeight(document.getElementById("window-" + folderName).style.height);
+
 }
 
 function startup() {
