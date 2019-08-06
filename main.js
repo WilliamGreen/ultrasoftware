@@ -51,36 +51,8 @@ class Program {
         return document.getElementById("window-" + this.name);
     }
 
-    setWindowHeight(windowHeight) {
-        this.windowHeight = windowHeight; 
-    }
-
-    getWindowHeight() {
-        return this.windowHeight;
-    }
-
-    setWindowWidth(windowWidth) {
-        this.windowWidth = windowWidth; 
-    }
-
-    getWindowWidth() {
-        return this.windowWidth;
-    }
-
-    setWindowLeft(windowLeft) {
-        this.windowLeft = windowLeft; 
-    }
-
-    getWindowLeft() {
-        return this.windowLeft;
-    }
-
-    setWindowTop(windowTop) {
-        this.windowTop = windowTop; 
-    }
-
-    getWindowTop() {
-        return this.windowTop;
+    setWindowPos(height, width, left, top) {
+        pos = 
     }
 }
 
@@ -477,6 +449,12 @@ function taskbarWindowToggle(elmnt) {
 function maxWindow(elmnt) {
     var folderName = elmnt.id.split("-")[1];
     var object = getWindowObject(folderName);
+    var desktopWidth = document.getElementsByClassName("dekstop")[0].offsetWidth;
+    var desktopHeight = document.getElementsByClassName("desktop")[0].offsetHeight;
+    var objectHeight = object.style.height;
+    var objectWidth = object.style.width;
+    var objectLeft = object.style.left;
+    var objectTop = object.style.top;
     object.setWindowHeight(document.getElementById("window-" + folderName).style.height);
 
 }
