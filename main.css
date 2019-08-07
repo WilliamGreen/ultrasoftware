@@ -98,7 +98,7 @@ body {
 
 .desktop-click-area {
     width: 100%;
-    height: 90%;
+    height: calc(100% - 28px)
 }
 
 .folder-wrap {

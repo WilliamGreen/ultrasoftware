@@ -4,11 +4,12 @@ var draggedWindowsHierarchy = [];
 var programs = [];
 
 class Program {
-    constructor(name, windowState, tabState, hierarchy) {
+    constructor(name, windowState, tabState, hierarchy, pos) {
         this.name = name;
         this.windowState = windowState;
         this.tabState = tabState;
         this.hierarchy = hierarchy;
+        this.pos = pos;
     }
 
     getName() {
@@ -52,7 +53,7 @@ class Program {
     }
 
     setWindowPos(height, width, left, top) {
-        pos = 
+        this.pos = [height, width, left, top]
     }
 }
 
@@ -449,14 +450,18 @@ function taskbarWindowToggle(elmnt) {
 function maxWindow(elmnt) {
     var folderName = elmnt.id.split("-")[1];
     var object = getWindowObject(folderName);
-    var desktopWidth = document.getElementsByClassName("dekstop")[0].offsetWidth;
-    var desktopHeight = document.getElementsByClassName("desktop")[0].offsetHeight;
-    var objectHeight = object.style.height;
-    var objectWidth = object.style.width;
-    var objectLeft = object.style.left;
-    var objectTop = object.style.top;
-    object.setWindowHeight(document.getElementById("window-" + folderName).style.height);
-
+    var desktopWinddow = object.getWindowElement();
+    var desktopWidth = document.getElementsByClassName("desktop-click-area")[0].offsetWidth;
+    var desktopHeight = document.getElementsByClassName("desktop-click-area")[0].offsetHeight;
+    var objectHeight = desktopWinddow.style.height;
+    var objectWidth = desktopWinddow.style.width;
+    var objectLeft = desktopWinddow.style.left;
+    var objectTop = desktopWinddow.style.top;
+    desktopWinddow.style.height = desktopHeight;
+    desktopWinddow.style.width = desktopWidth;
+    desktopWinddow.style.left = 0;
+    desktopWinddow.style.top = 0;
+    object.setWindowPos(objectHeight, objectWidth, objectLeft, objectTop);
 }
 
 function startup() {
@@ -518,7 +523,10 @@ function addToStartup(i, startupText) {
 }
 
 window.addEventListener("DOMContentLoaded", event => {
-    programs.push(new Program("projects", "hidden", "none", 0, 0));
+    programs.push(new Program("projects", "hidden", "none", 0, 0, 
+    [document.getElementById("window-projects").offsetHeight, 
+    document.getElementById("window-projects").offsetWidth,
+    190, 30]));
     programs.push(new Program("trash", "hidden", "none", 0, 0));
 
     var now = new Date();
@@ -587,6 +595,13 @@ window.addEventListener("DOMContentLoaded", event => {
         .getElementById("window-projects-close")
         .addEventListener("click", () => {
             closeWindow(document.getElementById("window-projects")).then(
+                styleTabs()
+            );
+        });
+    document
+        .getElementById("window-projects-max")
+        .addEventListener("click", () => {
+            maxWindow(document.getElementById("window-projects")).then(
                 styleTabs()
             );
         });
@@ -684,5 +699,8 @@ window.addEventListener("DOMContentLoaded", event => {
     resize(document.getElementById("window-projects"));
     resize(document.getElementById("window-trash"));
 
+
     startup();
+
+
 });
